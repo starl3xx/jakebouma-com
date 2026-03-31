@@ -47,12 +47,17 @@ const eras: Era[] = [
     title: "JakeBouma.com",
     subtitle: "800+ blog posts on theology, culture, tech, books, and life",
     description:
-      "What started as a college experiment became an eight-year writing habit. WordPress, the Thesis theme, a Feedburner RSS feed, and a small but loyal readership. I wrote about everything\u2014faith, music, movies, politics, food, the Enneagram, David Foster Wallace, and whatever else I was obsessing over that week.",
+      "What started as a Luther College student blog became an eight-year writing habit. WordPress, the Thesis theme, a Feedburner RSS feed, and a small but loyal readership. I wrote about everything\u2014faith, music, movies, politics, food, the Enneagram, David Foster Wallace, and whatever else I was obsessing over that week.",
     links: [
       {
         title: "Browse the full archive",
         href: "/archive?year=2004",
-        description: "822 posts, searchable by year and category",
+        description: "867 posts, searchable by year and category",
+      },
+      {
+        title: "Luther College blog",
+        href: "/archive?tag=luther-college",
+        description: "15 posts from the pre-WordPress era (2004)",
       },
       {
         title: "2012 Books",

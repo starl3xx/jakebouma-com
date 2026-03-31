@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllSlugs, getPostBySlug, formatDate } from "@/lib/posts";
 import PostContent from "@/components/PostContent";
+import { getSource } from "@/data/sources";
 
 export async function generateStaticParams() {
   const slugs = await getAllSlugs();
@@ -33,6 +34,8 @@ export default async function PostPage({
 
   if (!post) notFound();
 
+  const source = getSource(post.source || "wordpress");
+
   return (
     <article className="max-w-3xl mx-auto px-6 pt-20 pb-20">
       {/* Back link */}
@@ -53,25 +56,24 @@ export default async function PostPage({
         )}
         <div className="flex flex-wrap items-center gap-3 font-sans text-xs text-ink-faint tracking-wide">
           <time dateTime={post.date}>{formatDate(post.date)}</time>
-          {post.source === "substack" && (
-            <span className="border border-rule rounded px-2 py-0.5">
-              Neon Parentheses
-            </span>
-          )}
-          {post.source === "medium" && (
-            <span className="border border-rule rounded px-2 py-0.5">
-              Medium
-            </span>
+          {source && (
+            <Link
+              href={`/sources/${source.slug}`}
+              className="border border-rule rounded px-2 py-0.5 hover:bg-cream-dark hover:text-ink transition-colors"
+            >
+              {source.shortName}
+            </Link>
           )}
           {post.categories?.length > 0 && (
             <div className="flex gap-2">
               {post.categories.map((cat) => (
-                <span
+                <Link
                   key={cat}
-                  className="border border-rule rounded px-2 py-0.5"
+                  href={`/archive?category=${encodeURIComponent(cat)}`}
+                  className="border border-rule rounded px-2 py-0.5 hover:bg-cream-dark hover:text-ink transition-colors"
                 >
                   {cat}
-                </span>
+                </Link>
               ))}
             </div>
           )}
@@ -88,12 +90,13 @@ export default async function PostPage({
         <div className="mt-14 pt-8 border-t border-rule-light">
           <div className="flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <span
+              <Link
                 key={tag}
-                className="font-sans text-xs text-ink-faint bg-cream-dark rounded px-3 py-1"
+                href={`/archive?tag=${encodeURIComponent(tag)}`}
+                className="font-sans text-xs text-ink-faint bg-cream-dark rounded px-3 py-1 hover:bg-rule-light hover:text-ink transition-colors"
               >
                 {tag}
-              </span>
+              </Link>
             ))}
           </div>
         </div>

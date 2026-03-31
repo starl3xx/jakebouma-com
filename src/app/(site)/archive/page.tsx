@@ -15,6 +15,7 @@ function ArchiveContent() {
   const [loading, setLoading] = useState(true);
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -48,8 +49,10 @@ function ArchiveContent() {
   useEffect(() => {
     const cat = searchParams.get("category");
     const year = searchParams.get("year");
+    const tag = searchParams.get("tag");
     if (cat) setSelectedCategory(cat);
     if (year) setSelectedYear(year);
+    if (tag) setSelectedTag(tag);
   }, [searchParams]);
 
   const filtered = useMemo(() => {
@@ -57,6 +60,8 @@ function ArchiveContent() {
     if (selectedYear) result = result.filter((p) => p.year === selectedYear);
     if (selectedCategory)
       result = result.filter((p) => p.categories?.includes(selectedCategory));
+    if (selectedTag)
+      result = result.filter((p) => p.tags?.includes(selectedTag));
     if (search) {
       const q = search.toLowerCase();
       result = result.filter(
@@ -67,15 +72,16 @@ function ArchiveContent() {
       );
     }
     return result;
-  }, [posts, selectedYear, selectedCategory, search]);
+  }, [posts, selectedYear, selectedCategory, selectedTag, search]);
 
   const clearFilters = () => {
     setSelectedYear(null);
     setSelectedCategory(null);
+    setSelectedTag(null);
     setSearch("");
   };
 
-  const hasFilters = selectedYear || selectedCategory || search;
+  const hasFilters = selectedYear || selectedCategory || selectedTag || search;
 
   if (loading) {
     return (
@@ -152,6 +158,21 @@ function ArchiveContent() {
             </button>
           ))}
         </div>
+
+        {selectedTag && (
+          <div className="flex items-center gap-2">
+            <span className="font-sans text-xs text-ink-muted">Tag:</span>
+            <span className="font-sans text-xs bg-accent text-cream rounded px-3 py-1.5">
+              {selectedTag}
+            </span>
+            <button
+              onClick={() => setSelectedTag(null)}
+              className="font-sans text-xs text-ink-faint hover:text-ink"
+            >
+              &times;
+            </button>
+          </div>
+        )}
 
         {hasFilters && (
           <button

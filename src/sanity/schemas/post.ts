@@ -58,6 +58,8 @@ export default defineType({
           { title: "Neon Parentheses (Substack)", value: "substack" },
           { title: "Medium", value: "medium" },
           { title: "Original", value: "original" },
+          { title: "Luther College Blog", value: "luther" },
+          { title: "Blogspot", value: "blogspot" },
         ],
       },
     }),
