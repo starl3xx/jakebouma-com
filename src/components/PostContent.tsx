@@ -35,60 +35,9 @@ function wpautop(text: string): string {
     .join("\n\n");
 }
 
-function convertFlashEmbeds(html: string): string {
-  let result = html;
-
-  // YouTube: extract video ID from Flash embed URL and convert to iframe
-  result = result.replace(
-    /<object[^>]*>[\s\S]*?(?:youtube\.com\/v\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)[\s\S]*?<\/object>/gi,
-    (_match, id) =>
-      `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://www.youtube.com/embed/${id}" style="position:absolute;top:0;left:0;width:100%;height:100%" frameborder="0" allowfullscreen></iframe></div>`
-  );
-
-  // Vimeo: extract clip ID from Flash embed URL
-  result = result.replace(
-    /<object[^>]*>[\s\S]*?(?:vimeo\.com\/moogaloop\.swf\?clip_id=)(\d+)[\s\S]*?<\/object>/gi,
-    (_match, id) =>
-      `<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden"><iframe src="https://player.vimeo.com/video/${id}" style="position:absolute;top:0;left:0;width:100%;height:100%" frameborder="0" allowfullscreen></iframe></div>`
-  );
-
-  // Flickr slideshow: extract set ID and convert to link
-  result = result.replace(
-    /<object[^>]*>[\s\S]*?flickr\.com[\s\S]*?set_id=(\d+)[\s\S]*?<\/object>/gi,
-    (_match, setId) =>
-      `<div style="border:1px solid #d9d3ca;border-radius:8px;padding:1.5rem;text-align:center;margin:1.5rem 0;background:#faf8f5"><p style="margin:0 0 0.5rem;font-size:0.9em;color:#999">📷 Flickr Slideshow</p><a href="https://www.flickr.com/photos/jakebouma/sets/${setId}" target="_blank" rel="noopener" style="font-weight:600">View photo set on Flickr &rarr;</a></div>`
-  );
-
-  // SoundCloud: extract URL from Flash embed
-  result = result.replace(
-    /<object[^>]*>[\s\S]*?player\.soundcloud\.com[\s\S]*?url=(https?[^&"]+)[\s\S]*?<\/object>/gi,
-    (_match, url) => {
-      const decoded = decodeURIComponent(url);
-      return `<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=${encodeURIComponent(decoded)}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>`;
-    }
-  );
-
-  // Any remaining <object>/<embed> Flash content: remove gracefully with a note
-  result = result.replace(
-    /<object[^>]*>[\s\S]*?<\/object>/gi,
-    '<p style="color:#999;font-style:italic;font-size:0.85em">[Embedded content no longer available]</p>'
-  );
-
-  // Standalone <embed> tags (without wrapping <object>)
-  result = result.replace(
-    /<embed[^>]*\/?>/gi,
-    ''
-  );
-
-  return result;
-}
-
 function processContent(html: string): string {
   // Apply wpautop first to convert raw newlines to paragraphs
   let result = wpautop(html);
-
-  // Convert Flash embeds to modern equivalents
-  result = convertFlashEmbeds(result);
 
   // Fix bare <li> inside <blockquote> (missing <ul> wrapper — old tweet embeds)
   result = result.replace(
