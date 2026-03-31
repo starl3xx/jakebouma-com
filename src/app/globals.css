@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-cream: #f7f3ee;
+  --color-cream-dark: #ede8e0;
+  --color-ink: #2c2c2c;
+  --color-ink-light: #4a4a4a;
+  --color-ink-muted: #777777;
+  --color-ink-faint: #aaaaaa;
+  --color-rule: #d9d3ca;
+  --color-rule-light: #e8e3db;
+  --color-accent: #3d6b7a;
+  --color-accent-hover: #2d5261;
+  --color-accent-light: #e8f0f3;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    ui-serif, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* Small caps utility */
+.small-caps {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+/* Refined link underline */
+.link-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 0.2s;
+}
+.link-underline:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+/* Substack footnote anchors (in-text superscript numbers) */
+.prose a.footnote-anchor {
+  font-size: 0.65em !important;
+  vertical-align: super !important;
+  line-height: 0 !important;
+  text-decoration: none !important;
+  color: var(--color-accent) !important;
+  font-weight: 600 !important;
+  padding: 0 2px !important;
+}
+
+.prose a.footnote-anchor:hover {
+  text-decoration: underline !important;
+}
