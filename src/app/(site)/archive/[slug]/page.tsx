@@ -54,28 +54,16 @@ export default async function PostPage({
         {post.subtitle && (
           <p className="text-lg text-ink-muted italic mb-4">{post.subtitle}</p>
         )}
-        <div className="flex flex-wrap items-center gap-3 font-sans text-xs text-ink-faint tracking-wide">
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
+        <div className="flex flex-wrap items-center gap-3 font-sans text-xs tracking-wide">
+          <time className="text-ink-faint" dateTime={post.date}>{formatDate(post.date)}</time>
           {source && (
             <Link
               href={`/sources/${source.slug}`}
-              className="border border-rule rounded px-2 py-0.5 hover:bg-cream-dark hover:text-ink transition-colors"
+              className="source-badge rounded px-2.5 py-0.5 transition-opacity hover:opacity-80"
+              data-source={post.source || "wordpress"}
             >
               {source.shortName}
             </Link>
-          )}
-          {post.categories?.length > 0 && (
-            <div className="flex gap-2">
-              {post.categories.map((cat) => (
-                <Link
-                  key={cat}
-                  href={`/archive?category=${encodeURIComponent(cat)}`}
-                  className="border border-rule rounded px-2 py-0.5 hover:bg-cream-dark hover:text-ink transition-colors"
-                >
-                  {cat}
-                </Link>
-              ))}
-            </div>
           )}
         </div>
       </header>

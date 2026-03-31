@@ -34,6 +34,11 @@ const eras: Era[] = [
         external: true,
       },
       {
+        title: "Dr. Thunder & the Generic Sodas",
+        href: "/dr-thunder",
+        description: "The best band. Ever. (Luther College, c. 2004)",
+      },
+      {
         title: "More coming soon",
         href: "#early",
         description: "Digging through old hard drives",
@@ -52,7 +57,7 @@ const eras: Era[] = [
       {
         title: "Browse the full archive",
         href: "/archive?year=2004",
-        description: "867 posts, searchable by year and category",
+        description: "869 posts, searchable by year and category",
       },
       {
         title: "Luther College blog",

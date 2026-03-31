@@ -131,3 +131,25 @@ body {
   margin: 0.25em 0 1em 1em;
   border-radius: 2px;
 }
+
+/* Source badges */
+.source-badge[data-source="substack"] {
+  background-color: #e43b8e;
+  color: #fff;
+}
+.source-badge[data-source="luther"] {
+  background-color: #c9cfc2;
+  color: #db6922;
+}
+.source-badge[data-source="wordpress"] {
+  background-color: #27353b;
+  color: #b7c484;
+}
+.source-badge[data-source="blogspot"] {
+  background-color: #7b5b3a;
+  color: #f5efe8;
+}
+.source-badge[data-source="medium"] {
+  background-color: #265583;
+  color: #fff;
+}
