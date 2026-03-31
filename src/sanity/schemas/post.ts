@@ -49,6 +49,12 @@ export default defineType({
       options: { layout: "tags" },
     }),
     defineField({
+      name: "featuredImage",
+      title: "Featured Image",
+      type: "string",
+      description: "Path to the featured/header image (e.g. /images/2012books.jpg)",
+    }),
+    defineField({
       name: "source",
       title: "Source",
       type: "string",

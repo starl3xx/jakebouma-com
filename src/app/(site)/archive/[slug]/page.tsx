@@ -18,10 +18,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return {};
-  return {
+  const metadata: Metadata = {
     title: post.title,
     description: `Originally published on JakeBouma.com on ${formatDate(post.date)}`,
   };
+  if (post.featuredImage) {
+    metadata.openGraph = { images: [post.featuredImage] };
+  }
+  return metadata;
 }
 
 export default async function PostPage({
@@ -67,6 +71,17 @@ export default async function PostPage({
           )}
         </div>
       </header>
+
+      {/* Featured Image */}
+      {post.featuredImage && (
+        <div className="mb-10">
+          <img
+            src={post.featuredImage}
+            alt=""
+            className="w-full rounded"
+          />
+        </div>
+      )}
 
       <hr className="border-rule mb-10" />
 

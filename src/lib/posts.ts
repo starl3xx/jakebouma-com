@@ -12,6 +12,7 @@ export interface Post {
   categories: string[];
   tags: string[];
   source?: string;
+  featuredImage?: string | null;
 }
 
 const postFields = `
@@ -25,7 +26,8 @@ const postFields = `
   content,
   "categories": categories[]->title,
   tags,
-  source
+  source,
+  featuredImage
 `;
 
 export async function getAllPosts(): Promise<Post[]> {

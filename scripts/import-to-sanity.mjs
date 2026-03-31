@@ -67,6 +67,7 @@ for (let i = 0; i < total; i += BATCH_SIZE) {
       })),
     };
     if (post.subtitle) doc.subtitle = post.subtitle;
+    if (post.featuredImage) doc.featuredImage = post.featuredImage;
 
     transaction.createOrReplace(doc);
   }
