@@ -15,9 +15,9 @@ declare global {
 function processContent(html: string): string {
   let result = html;
 
-  // Convert bare tweet URLs (on their own line) into blockquote embeds
+  // Convert bare tweet URLs (on their own line, not inside an <a> tag) into embeds
   result = result.replace(
-    /(?:<p>)?\s*(https?:\/\/(?:twitter\.com|x\.com)\/(\w+)\/status\/(\d+))\s*(?:<\/p>)?/g,
+    /<p>\s*(https?:\/\/(?:twitter\.com|x\.com)\/(\w+)\/status\/(\d+))\s*<\/p>/g,
     (_match, url, _user, _id) =>
       `<blockquote class="twitter-tweet"><a href="${url}">${url}</a></blockquote>`
   );
