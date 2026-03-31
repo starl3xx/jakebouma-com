@@ -135,58 +135,22 @@ function ArchiveContent() {
       </div>
 
       {/* Filters */}
-      <div className="mb-8 space-y-3">
-        <div className="flex flex-wrap gap-1.5">
-          {years.map((year) => (
-            <button
-              key={year}
-              onClick={() =>
-                setSelectedYear(selectedYear === year ? null : year)
-              }
-              className={`font-sans px-3 py-1.5 text-xs tracking-wide rounded transition-colors ${
-                selectedYear === year
-                  ? "bg-accent text-cream"
-                  : "bg-cream-dark text-ink-muted hover:text-ink"
-              }`}
-            >
-              {year}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap gap-1.5">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() =>
-                setSelectedCategory(selectedCategory === cat ? null : cat)
-              }
-              className={`font-sans px-3 py-1.5 text-xs rounded transition-colors ${
-                selectedCategory === cat
-                  ? "bg-accent text-cream"
-                  : "bg-cream-dark text-ink-muted hover:text-ink"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
+      <div className="mb-8 space-y-4">
+        {/* Sources */}
         <div className="flex flex-wrap gap-1.5">
           {sourceKeys.map((key) => {
             const source = getSource(key);
+            const isActive = selectedSource === key;
             return (
               <button
                 key={key}
                 onClick={() =>
-                  setSelectedSource(selectedSource === key ? null : key)
+                  setSelectedSource(isActive ? null : key)
                 }
-                className={`font-sans px-3 py-1.5 text-xs rounded transition-colors ${
-                  selectedSource === key
-                    ? "source-badge"
-                    : "bg-cream-dark text-ink-muted hover:text-ink"
+                className={`source-badge font-sans px-2.5 py-0.5 text-xs rounded transition-opacity ${
+                  isActive ? "" : selectedSource ? "opacity-35" : "opacity-70 hover:opacity-100"
                 }`}
-                data-source={selectedSource === key ? key : undefined}
+                data-source={key}
               >
                 {source?.shortName || key}
               </button>
@@ -194,15 +158,54 @@ function ArchiveContent() {
           })}
         </div>
 
-        {selectedTag && (
-          <div className="flex items-center gap-2">
-            <span className="font-sans text-xs text-ink-muted">Tag:</span>
-            <span className="font-sans text-xs bg-accent text-cream rounded px-3 py-1.5">
-              {selectedTag}
+        {/* Years & Categories as inline text */}
+        <div className="font-sans text-xs text-ink-faint flex flex-wrap items-center gap-x-1 gap-y-0.5 leading-relaxed">
+          {years.map((year, i) => (
+            <span key={year}>
+              <button
+                onClick={() =>
+                  setSelectedYear(selectedYear === year ? null : year)
+                }
+                className={`transition-colors ${
+                  selectedYear === year
+                    ? "text-accent font-semibold"
+                    : "hover:text-ink"
+                }`}
+              >
+                {year}
+              </button>
+              {i < years.length - 1 && <span className="text-rule mx-0.5">&middot;</span>}
             </span>
+          ))}
+        </div>
+
+        <div className="font-sans text-xs text-ink-faint flex flex-wrap items-center gap-x-1 gap-y-0.5 leading-relaxed">
+          {categories.map((cat, i) => (
+            <span key={cat}>
+              <button
+                onClick={() =>
+                  setSelectedCategory(selectedCategory === cat ? null : cat)
+                }
+                className={`transition-colors ${
+                  selectedCategory === cat
+                    ? "text-accent font-semibold"
+                    : "hover:text-ink"
+                }`}
+              >
+                {cat}
+              </button>
+              {i < categories.length - 1 && <span className="text-rule mx-0.5">&middot;</span>}
+            </span>
+          ))}
+        </div>
+
+        {selectedTag && (
+          <div className="flex items-center gap-2 font-sans text-xs">
+            <span className="text-ink-muted">Tag:</span>
+            <span className="text-accent font-semibold">{selectedTag}</span>
             <button
               onClick={() => setSelectedTag(null)}
-              className="font-sans text-xs text-ink-faint hover:text-ink"
+              className="text-ink-faint hover:text-ink"
             >
               &times;
             </button>
