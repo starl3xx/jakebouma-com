@@ -22,6 +22,16 @@ function processContent(html: string): string {
       `<blockquote class="twitter-tweet"><a href="${url}">${url}</a></blockquote>`
   );
 
+  // Convert WordPress inline-styled divs used as section headers into h3
+  result = result.replace(
+    /<div[^>]*style="[^"]*font-size:\s*1[4-8]px[^"]*font-weight:\s*bold[^"]*"[^>]*>([\s\S]*?)<\/div>/gi,
+    '<h3>$1</h3>'
+  );
+  result = result.replace(
+    /<div[^>]*style="[^"]*font-weight:\s*bold[^"]*font-size:\s*1[4-8]px[^"]*"[^>]*>([\s\S]*?)<\/div>/gi,
+    '<h3>$1</h3>'
+  );
+
   // Convert in-text footnote anchors to superscript
   result = result.replace(
     /<a[^>]*class="footnote-anchor"[^>]*id="(footnote-anchor-\d+)"[^>]*href="(#footnote-\d+)"[^>]*>(\d+)<\/a>/g,
