@@ -56,7 +56,7 @@ function convertFlashEmbeds(html: string): string {
   result = result.replace(
     /<object[^>]*>[\s\S]*?flickr\.com[\s\S]*?set_id=(\d+)[\s\S]*?<\/object>/gi,
     (_match, setId) =>
-      `<p><a href="https://www.flickr.com/photos/jakebouma/sets/${setId}" target="_blank" rel="noopener">View photo set on Flickr &rarr;</a></p>`
+      `<div style="border:1px solid #d9d3ca;border-radius:8px;padding:1.5rem;text-align:center;margin:1.5rem 0;background:#faf8f5"><p style="margin:0 0 0.5rem;font-size:0.9em;color:#999">📷 Flickr Slideshow</p><a href="https://www.flickr.com/photos/jakebouma/sets/${setId}" target="_blank" rel="noopener" style="font-weight:600">View photo set on Flickr &rarr;</a></div>`
   );
 
   // SoundCloud: extract URL from Flash embed

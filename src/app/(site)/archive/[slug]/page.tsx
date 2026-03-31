@@ -58,15 +58,16 @@ export default async function PostPage({
         {post.subtitle && (
           <p className="text-lg text-ink-muted italic mb-4">{post.subtitle}</p>
         )}
-        <div className="font-sans text-xs tracking-wide text-ink-faint">
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
+        <div className="flex flex-wrap items-center gap-3 font-sans text-xs tracking-wide">
+          <time className="text-ink-faint" dateTime={post.date}>{formatDate(post.date)}</time>
           {source && (
             <>
-              <span className="mx-2">✦</span>
-              <span className="italic">originally published via</span>{" "}
+              <span className="text-ink-faint">✦</span>
+              <span className="text-ink-faint italic">originally published via</span>
               <Link
                 href={`/sources/${source.slug}`}
-                className="text-accent hover:underline decoration-1 underline-offset-3"
+                className="source-badge rounded px-2.5 py-0.5 transition-opacity hover:opacity-80"
+                data-source={post.source || "wordpress"}
               >
                 {source.shortName}
               </Link>
