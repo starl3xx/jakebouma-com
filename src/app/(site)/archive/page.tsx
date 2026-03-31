@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { formatDate } from "@/lib/posts";
 import type { Post } from "@/lib/posts";
 import { client } from "@/sanity/client";
+import { getSource } from "@/data/sources";
 
 function ArchiveContent() {
   const searchParams = useSearchParams();
@@ -16,6 +17,7 @@ function ArchiveContent() {
   const [selectedYear, setSelectedYear] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedSource, setSelectedSource] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -53,6 +55,8 @@ function ArchiveContent() {
     if (cat) setSelectedCategory(cat);
     if (year) setSelectedYear(year);
     if (tag) setSelectedTag(tag);
+    const source = searchParams.get("source");
+    if (source) setSelectedSource(source);
   }, [searchParams]);
 
   const filtered = useMemo(() => {
@@ -62,6 +66,8 @@ function ArchiveContent() {
       result = result.filter((p) => p.categories?.includes(selectedCategory));
     if (selectedTag)
       result = result.filter((p) => p.tags?.includes(selectedTag));
+    if (selectedSource)
+      result = result.filter((p) => (p.source || "wordpress") === selectedSource);
     if (search) {
       const q = search.toLowerCase();
       result = result.filter(
@@ -72,16 +78,23 @@ function ArchiveContent() {
       );
     }
     return result;
-  }, [posts, selectedYear, selectedCategory, selectedTag, search]);
+  }, [posts, selectedYear, selectedCategory, selectedTag, selectedSource, search]);
 
   const clearFilters = () => {
     setSelectedYear(null);
     setSelectedCategory(null);
     setSelectedTag(null);
+    setSelectedSource(null);
     setSearch("");
   };
 
-  const hasFilters = selectedYear || selectedCategory || selectedTag || search;
+  const hasFilters = selectedYear || selectedCategory || selectedTag || selectedSource || search;
+
+  const sourceKeys = useMemo(() => {
+    const keys = [...new Set(posts.map((p) => p.source || "wordpress"))];
+    const order = ["wordpress", "blogspot", "luther", "medium", "substack"];
+    return keys.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  }, [posts]);
 
   if (loading) {
     return (
@@ -157,6 +170,28 @@ function ArchiveContent() {
               {cat}
             </button>
           ))}
+        </div>
+
+        <div className="flex flex-wrap gap-1.5">
+          {sourceKeys.map((key) => {
+            const source = getSource(key);
+            return (
+              <button
+                key={key}
+                onClick={() =>
+                  setSelectedSource(selectedSource === key ? null : key)
+                }
+                className={`font-sans px-3 py-1.5 text-xs rounded transition-colors ${
+                  selectedSource === key
+                    ? "source-badge"
+                    : "bg-cream-dark text-ink-muted hover:text-ink"
+                }`}
+                data-source={selectedSource === key ? key : undefined}
+              >
+                {source?.shortName || key}
+              </button>
+            );
+          })}
         </div>
 
         {selectedTag && (
