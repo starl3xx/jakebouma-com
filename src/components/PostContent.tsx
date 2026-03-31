@@ -14,19 +14,19 @@ declare global {
 
 function wpautop(text: string): string {
   // Replicate WordPress's wpautop: convert double newlines to <p> tags
-  // Only apply if the content doesn't already have <p> tags
-  if (/<p[\s>]/i.test(text)) return text;
+  // Apply to content that has double newlines, even if some <p> tags exist
+  if (!text.includes("\n\n")) return text;
 
   let result = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
-  // Normalize multiple newlines
-  result = result.replace(/\n{2,}/g, "\n\n");
-  // Split on double newlines and wrap each block in <p>
+  // Normalize 3+ newlines to double
+  result = result.replace(/\n{3,}/g, "\n\n");
+  // Split on double newlines and wrap each block in <p> if not already wrapped
   const blocks = result.split(/\n\n/).filter((b) => b.trim());
   return blocks
     .map((block) => {
       const trimmed = block.trim();
-      // Don't wrap block-level elements
-      if (/^<(?:div|blockquote|h[1-6]|ul|ol|li|table|hr|pre|figure)/i.test(trimmed)) {
+      // Don't wrap block-level elements or content already in tags
+      if (/^<(?:p|div|blockquote|h[1-6]|ul|ol|li|table|hr|pre|figure|script)/i.test(trimmed)) {
         return trimmed;
       }
       // Convert single newlines within a block to <br>
