@@ -38,6 +38,12 @@ body {
   letter-spacing: 0.05em;
 }
 
+/* Remove auto-generated quotes from blockquotes */
+.prose blockquote p::before,
+.prose blockquote p::after {
+  content: none !important;
+}
+
 /* Refined link underline */
 .link-underline {
   text-decoration: underline;
