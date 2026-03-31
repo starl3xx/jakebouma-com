@@ -50,6 +50,25 @@ function processContent(html: string): string {
     }
   );
 
+  // Convert WordPress <footnote> plugin tags into superscript refs + endnotes
+  const footnoteRegex = /<footnote>([\s\S]*?)<\/footnote>/gi;
+  const footnotes: string[] = [];
+  result = result.replace(footnoteRegex, (_match, content) => {
+    footnotes.push(content.trim());
+    const n = footnotes.length;
+    return `<sup><a href="#wp-fn-${n}" id="wp-fn-ref-${n}" style="font-size:0.75em;text-decoration:none;color:#3d6b7a;font-weight:600">${n}</a></sup>`;
+  });
+
+  if (footnotes.length > 0) {
+    result += '<hr style="margin-top:2.5rem;border-color:#d9d3ca">';
+    result += '<div style="font-size:0.85em;color:#6b6b6b">';
+    footnotes.forEach((fn, i) => {
+      const n = i + 1;
+      result += `<p style="margin:0.25rem 0"><sup><a id="wp-fn-${n}" href="#wp-fn-ref-${n}" style="font-size:0.75em;text-decoration:none;color:#3d6b7a;font-weight:600">${n}</a></sup> ${fn}</p>`;
+    });
+    result += '</div>';
+  }
+
   return result;
 }
 
