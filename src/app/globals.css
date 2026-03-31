@@ -2,8 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-cream: #f7f3ee;
-  --color-cream-dark: #ede8e0;
+  --color-cream: #faf9f7;
+  --color-cream-dark: #f3f1ed;
   --color-ink: #2c2c2c;
   --color-ink-light: #4a4a4a;
   --color-ink-muted: #777777;
