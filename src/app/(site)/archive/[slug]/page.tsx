@@ -82,8 +82,7 @@ export default async function PostPage({
           <img
             src={post.featuredImage}
             alt=""
-            className="w-full rounded"
-          />
+            className="max-w-full h-auto rounded"
         </div>
       )}
 
