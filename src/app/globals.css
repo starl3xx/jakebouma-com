@@ -64,3 +64,57 @@ body {
 .prose a.footnote-anchor:hover {
   text-decoration: underline !important;
 }
+
+/* WordPress image containers from the original blog */
+.prose .rightbox {
+  float: right;
+  margin: 0.5rem 0 0.75rem 1.5rem;
+}
+
+.prose .leftbox {
+  float: left;
+  margin: 0.5rem 1.5rem 0.75rem 0;
+}
+
+.prose .rightbox img,
+.prose .leftbox img {
+  display: block;
+  background: white;
+  border: 1px solid #c8c4bc;
+  padding: 4px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  max-width: 200px;
+  height: auto;
+}
+
+/* Thesis theme 'frame' class for images */
+.prose img.frame,
+.prose img.post_image {
+  background: white;
+  border: 1px solid #c8c4bc;
+  padding: 4px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+
+/* Bio pic thumbnails */
+.prose img.biopic {
+  float: left;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #c8c4bc;
+  margin: 0.25em 1em 0.25em 0;
+  border-radius: 2px;
+}
+
+.prose img.biopicright {
+  float: right;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #c8c4bc;
+  margin: 0.25em 0 1em 1em;
+  border-radius: 2px;
+}
