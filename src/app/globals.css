@@ -68,12 +68,12 @@ body {
 /* WordPress image containers from the original blog */
 .prose .rightbox {
   float: right;
-  margin: 0.5rem 0 0.75rem 1.5rem;
+  margin: 0 0 0.75rem 1.5rem;
 }
 
 .prose .leftbox {
   float: left;
-  margin: 0.5rem 1.5rem 0.75rem 0;
+  margin: 0 1.5rem 0.75rem 0;
 }
 
 .prose .rightbox img,

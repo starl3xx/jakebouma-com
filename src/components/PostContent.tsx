@@ -12,14 +12,40 @@ declare global {
   }
 }
 
+function wpautop(text: string): string {
+  // Replicate WordPress's wpautop: convert double newlines to <p> tags
+  // Only apply if the content doesn't already have <p> tags
+  if (/<p[\s>]/i.test(text)) return text;
+
+  let result = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+  // Normalize multiple newlines
+  result = result.replace(/\n{2,}/g, "\n\n");
+  // Split on double newlines and wrap each block in <p>
+  const blocks = result.split(/\n\n/).filter((b) => b.trim());
+  return blocks
+    .map((block) => {
+      const trimmed = block.trim();
+      // Don't wrap block-level elements
+      if (/^<(?:div|blockquote|h[1-6]|ul|ol|li|table|hr|pre|figure)/i.test(trimmed)) {
+        return trimmed;
+      }
+      // Convert single newlines within a block to <br>
+      return `<p>${trimmed.replace(/\n/g, "<br>\n")}</p>`;
+    })
+    .join("\n\n");
+}
+
 function processContent(html: string): string {
-  let result = html;
+  // Apply wpautop first to convert raw newlines to paragraphs
+  let result = wpautop(html);
 
   // Convert bare tweet URLs (on their own line, not inside an <a> tag) into embeds
+  // Match URLs in their own <p>, or surrounded by newlines (WordPress stores as plain text)
   result = result.replace(
-    /<p>\s*(https?:\/\/(?:twitter\.com|x\.com)\/(\w+)\/status\/(\d+))\s*<\/p>/g,
-    (_match, url, _user, _id) =>
-      `<blockquote class="twitter-tweet"><a href="${url}">${url}</a></blockquote>`
+    /(?:<p>\s*)?((?:^|\n)\s*)(https?:\/\/(?:twitter\.com|x\.com)\/(\w+)\/status\/(\d+))\s*(?:<\/p>|\n)/gm,
+    (_match, _pre, url) => {
+      return `<blockquote class="twitter-tweet"><a href="${url}">${url}</a></blockquote>`;
+    }
   );
 
   // Convert WordPress inline-styled divs used as section headers into h3
