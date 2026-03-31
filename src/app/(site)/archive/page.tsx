@@ -158,68 +158,53 @@ function ArchiveContent() {
           })}
         </div>
 
-        {/* Years & Categories as inline text */}
-        <div className="font-sans text-xs text-ink-faint flex flex-wrap items-center gap-x-1 gap-y-0.5 leading-relaxed">
-          {years.map((year, i) => (
-            <span key={year}>
-              <button
-                onClick={() =>
-                  setSelectedYear(selectedYear === year ? null : year)
-                }
-                className={`transition-colors ${
-                  selectedYear === year
-                    ? "text-accent font-semibold"
-                    : "hover:text-ink"
-                }`}
-              >
-                {year}
-              </button>
-              {i < years.length - 1 && <span className="text-rule mx-0.5">&middot;</span>}
-            </span>
-          ))}
-        </div>
-
-        <div className="font-sans text-xs text-ink-faint flex flex-wrap items-center gap-x-1 gap-y-0.5 leading-relaxed">
-          {categories.map((cat, i) => (
-            <span key={cat}>
-              <button
-                onClick={() =>
-                  setSelectedCategory(selectedCategory === cat ? null : cat)
-                }
-                className={`transition-colors ${
-                  selectedCategory === cat
-                    ? "text-accent font-semibold"
-                    : "hover:text-ink"
-                }`}
-              >
-                {cat}
-              </button>
-              {i < categories.length - 1 && <span className="text-rule mx-0.5">&middot;</span>}
-            </span>
-          ))}
-        </div>
-
-        {selectedTag && (
-          <div className="flex items-center gap-2 font-sans text-xs">
-            <span className="text-ink-muted">Tag:</span>
-            <span className="text-accent font-semibold">{selectedTag}</span>
-            <button
-              onClick={() => setSelectedTag(null)}
-              className="text-ink-faint hover:text-ink"
-            >
-              &times;
-            </button>
-          </div>
-        )}
-
-        {hasFilters && (
-          <button
-            onClick={clearFilters}
-            className="font-sans text-xs text-accent hover:underline"
+        {/* Year & Category dropdowns */}
+        <div className="flex flex-wrap items-center gap-3">
+          <select
+            value={selectedYear || ""}
+            onChange={(e) => setSelectedYear(e.target.value || null)}
+            className="font-sans text-xs px-3 py-1.5 border border-rule rounded bg-cream text-ink-muted focus:outline-none focus:border-accent transition-colors appearance-none pr-7 cursor-pointer"
+            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='%23aaa'%3E%3Cpath d='M0 0l5 6 5-6z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
           >
-            Clear filters
-          </button>
-        )}
+            <option value="">All years</option>
+            {years.map((year) => (
+              <option key={year} value={year}>{year}</option>
+            ))}
+          </select>
+
+          <select
+            value={selectedCategory || ""}
+            onChange={(e) => setSelectedCategory(e.target.value || null)}
+            className="font-sans text-xs px-3 py-1.5 border border-rule rounded bg-cream text-ink-muted focus:outline-none focus:border-accent transition-colors appearance-none pr-7 cursor-pointer"
+            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='%23aaa'%3E%3Cpath d='M0 0l5 6 5-6z'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 8px center" }}
+          >
+            <option value="">All categories</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+
+          {selectedTag && (
+            <span className="font-sans text-xs text-ink-muted flex items-center gap-1.5">
+              Tag: <span className="text-accent font-semibold">{selectedTag}</span>
+              <button
+                onClick={() => setSelectedTag(null)}
+                className="text-ink-faint hover:text-ink"
+              >
+                &times;
+              </button>
+            </span>
+          )}
+
+          {hasFilters && (
+            <button
+              onClick={clearFilters}
+              className="font-sans text-xs text-accent hover:underline"
+            >
+              Clear all
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Results count */}
