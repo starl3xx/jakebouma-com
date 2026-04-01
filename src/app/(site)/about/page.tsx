@@ -33,11 +33,25 @@ export default function About() {
           </p>
 
           <p>
-            I&rsquo;ve been publishing things on the internet since 2005, when I launched the
-            first version of JakeBouma.com. Over the years that blog grew to 800+
-            posts covering everything from theology and culture to technology and
-            the deeply self-indulgent. The site eventually went offline, but the
-            impulse to create never stopped.
+            I&rsquo;ve been tinkering with the web since 1998, my freshman year of
+            high school. My first actual website was called{" "}
+            <em>Jake&rsquo;s Movie Wavs</em>&mdash;a place to download sound clips of
+            lines from movies. It got over 500,000 visitors and once earned me a $50
+            check from advertising. Since then, the paychecks have not continued. That
+            site was followed by a short-lived web design business called{" "}
+            <em>Jadabo Web Design</em> (zero clients), a webpage cataloging his high
+            school classmates&rsquo; AIM screen names, and a series of blogs: first{" "}
+            <em>I&rsquo;m Serious</em> on Blogspot, then{" "}
+            <em>My Stupid Mouth</em> (where I documented a trip to Greece and Turkey),
+            and finally, in 2005, JakeBouma.com on WordPress.
+          </p>
+
+          <p>
+            Over the years the blog grew to 800+ posts covering everything from
+            theology and culture to technology and the deeply self-indulgent. I also
+            sang in a male a cappella group called Undeclared and played in a band
+            called Dr. Thunder &amp; the Generic Sodas. The site eventually went
+            offline, but the impulse to create never stopped.
           </p>
 
           <p>

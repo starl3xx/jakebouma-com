@@ -25,11 +25,11 @@ const sources: Record<string, Source> = {
   },
   blogspot: {
     slug: "blogspot",
-    name: "jbouma.blogspot.com",
+    name: "Blogspot",
     shortName: "Blogspot",
-    years: "2004–2005",
+    years: "2003–2005",
     description:
-      "When I needed a blog I could update from home over dial-up (the Luther student server was hard to reach off-campus), I moved to Blogger/Blogspot. This became the home for posts about finals, my 21st birthday, a study-abroad trip to Greece and Turkey, and online poker. In March 2005, I launched JakeBouma.com on WordPress, and the Blogspot blog was retired.",
+      "Two blogs on Blogger/Blogspot. The first was \"I'm Serious\" (buddhajake.blogspot.com, 2003–2004), started during my freshman year at Luther College\u2014musings about The Matrix, frisbee, Dr. Thunder rehearsals, and whatever else was on my mind. When I needed a blog I could update from home over dial-up, I started a second one: \"My Stupid Mouth\" (jbouma.blogspot.com, 2004–2005), which became the home for posts about finals, my 21st birthday, a study-abroad trip to Greece and Turkey, and online poker. In March 2005, I launched JakeBouma.com on WordPress, and the Blogspot era ended.",
     url: "https://jbouma.blogspot.com/",
     archiveUrl: "https://jbouma.blogspot.com/",
   },
