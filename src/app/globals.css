@@ -181,8 +181,8 @@ body {
   color: #db6922;
 }
 .source-badge[data-source="wordpress"] {
-  background-color: #b7c484;
-  color: #27353b;
+  background-color: #3d7a4a;
+  color: #fff;
 }
 .source-badge[data-source="blogspot"] {
   background-color: #7b5b3a;
