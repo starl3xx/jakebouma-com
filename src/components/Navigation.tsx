@@ -24,9 +24,9 @@ export default function Navigation() {
       <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link
           href="/"
-          className="font-sans text-sm font-semibold tracking-wide uppercase text-ink hover:text-accent transition-colors"
+          className="hover:opacity-80 transition-opacity"
         >
-          Jake Bouma
+          <img src="/images/jb-logo.png" alt="Jake Bouma" className="h-8 w-auto" />
         </Link>
 
         {/* Desktop nav */}

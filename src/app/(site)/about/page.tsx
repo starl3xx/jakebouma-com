@@ -19,7 +19,7 @@ export default function About() {
         <div className="md:col-span-1">
           <div className="aspect-[3/4] overflow-hidden rounded">
             <img
-              src="/images/headshot.jpg"
+              src="/images/headshot.png"
               alt="Jake Bouma"
               className="w-full h-full object-cover grayscale-[15%]"
             />
